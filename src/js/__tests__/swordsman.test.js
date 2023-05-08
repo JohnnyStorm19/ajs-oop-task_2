@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-import Bowman from '../Characters/Bowman';
+import Swordsman from '../Characters/Swordsman';
 
 test('should return normal char', () => {
-  const char = new Bowman('Legolas');
+  const char = new Swordsman('Arthur');
   const result = {
-    name: 'Legolas',
-    type: 'Bowman',
-    attack: 25,
-    defence: 25,
+    name: 'Arthur',
+    type: 'Swordsman',
+    attack: 40,
+    defence: 10,
     health: 100,
     level: 1,
   };
@@ -17,25 +17,25 @@ test('should return normal char', () => {
 test('testing for invalid name', () => {
   const error = 'Invalid name';
   expect(() => {
-    const char = new Bowman('ы');
+    const char = new Swordsman('ы');
   }).toThrow(error);
 });
 
 test('testing for invalid type', () => {
   const error = 'Character type must be a string';
   expect(() => {
-    const char = new Bowman('Длинноухий', 13);
+    const char = new Swordsman('Артур', 13);
   }).toThrow(error);
 });
 
 test('should execute lvlUp fn', () => {
-  const char = new Bowman('Legolas');
+  const char = new Swordsman('Knight');
   char.levelUp();
   const result = {
-    name: 'Legolas',
-    type: 'Bowman',
-    attack: 30,
-    defence: 30,
+    name: 'Knight',
+    type: 'Swordsman',
+    attack: 48,
+    defence: 12,
     health: 100,
     level: 2,
   };
@@ -44,7 +44,7 @@ test('should execute lvlUp fn', () => {
 
 test('testing invalid levelUp for dead char', () => {
   const error = 'нельзя повысить левел умершего';
-  const char = new Bowman('Legolas');
+  const char = new Swordsman('Knight');
   char.health = 0;
   expect(() => {
     char.levelUp();
@@ -53,20 +53,20 @@ test('testing invalid levelUp for dead char', () => {
 
 test.each([
   {
-    health: 100, points: 20, defence: 25, expected: 85,
+    health: 100, points: 20, defence: 10, expected: 82,
   },
   {
-    health: 0, points: 10, defence: 25, expected: 0,
+    health: 0, points: 10, defence: 10, expected: 0,
   },
   {
-    health: 50, points: 30, defence: 30, expected: 29,
+    health: 50, points: 30, defence: 15, expected: 24.5,
   },
 ])(
   ('testing different damage with health: $health, defence: $defence and damage: $points'),
   ({
     health, points, defence, expected,
   }) => {
-    const char = new Bowman('Legolas');
+    const char = new Swordsman('Knight');
     char.health = health;
     char.defence = defence;
     char.damage(points);
